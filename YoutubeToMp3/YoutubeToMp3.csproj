@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FFMpegCore" Version="5.1.0" />
       <PackageReference Include="MediaToolkit" Version="1.1.0.1" />
       <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
       <PackageReference Include="VideoLibrary" Version="3.2.6" />

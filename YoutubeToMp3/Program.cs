@@ -6,9 +6,9 @@ class Program
     {
         converter = new YoutubeConverter();
         converter.Convert(
-            "/Users/cyKim/Downloads/",
+            "/Users/cykim/Downloads/",
             // "https://www.youtube.com/watch?v=yT9V6toG5bk",
-            "https://youtu.be/sfFjzKxJmUA",
+            "https://youtu.be/PhMEk6xbWyY?si=jPphcTj-FXZ_9DwO",
             "test"
             );
         
