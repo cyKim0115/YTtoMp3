@@ -17,7 +17,7 @@ public class AacToMp3Converter
                 .OutputToFile(Path.Combine(savePath, $"{info.name}.mp3"), false, options => options
                     .WithAudioCodec(info.GetCodec())
                     .WithAudioCodec(AudioCodec.LibMp3Lame)
-                    .WithAudioBitrate(AudioQuality.VeryHigh)
+                    .WithAudioBitrate((AudioQuality)info.bitrate)
                     .WithAudioSamplingRate(44100))
                 .WithLogLevel(FFMpegLogLevel.Info)
                 .ProcessSynchronously();
