@@ -2,18 +2,18 @@
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        converter = new YoutubeConverter();
-        converter.Convert(
+        _converter = new ConvertController();
+        _converter.Convert(
             "/Users/cykim/Downloads/",
             // "https://www.youtube.com/watch?v=yT9V6toG5bk",
             "https://youtu.be/PhMEk6xbWyY?si=jPphcTj-FXZ_9DwO",
             "test"
             );
         
-        Console.ReadLine();
+        await Task.Delay(Timeout.Infinite);
     }
 
-    private static YoutubeConverter converter;
+    private static ConvertController? _converter;
 }
