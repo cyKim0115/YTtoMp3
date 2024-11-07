@@ -17,7 +17,7 @@ internal partial class WebServerRoute
         var reader = new StreamReader(body, encoding);
         string strReceive = reader.ReadToEnd();
         
-        var buffer = Encoding.UTF8.GetBytes("ListenListen");
+        var buffer = "ListenListen"u8.ToArray();
         response.ContentLength64 = buffer.Length;
         var output = response.OutputStream;
         output.Write(buffer, 0, buffer.Length);

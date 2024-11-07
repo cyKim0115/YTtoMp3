@@ -40,12 +40,10 @@ public class ConvertController
         youtube.CreateDownloadAsync(
                 new Uri(targetVideo.Uri),
                 Path.Combine(savePath, fileName),
-                new Progress<Tuple<long, long>>((Tuple<long, long> v) =>
+                new Progress<Tuple<long, long>>(v =>
                 {
                     var percent = (int)((v.Item1 * 100) / v.Item2);
-                    Console.Write(string.Format("Downloading.. ( % {0} ) {1} / {2} MB\r", percent,
-                        (v.Item1 / (double)(1024 * 1024)).ToString("N"),
-                        (v.Item2 / (double)(1024 * 1024)).ToString("N")));
+                    Console.Write("Downloading.. ( % {0} ) {1} / {2} MB\r", percent, (v.Item1 / (double)(1024 * 1024)).ToString("N"), (v.Item2 / (double)(1024 * 1024)).ToString("N"));
                 }))
             .GetAwaiter().GetResult();
 
