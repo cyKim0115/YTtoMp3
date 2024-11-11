@@ -7,24 +7,19 @@ namespace YoutubeToMp3.WebServer;
 
 internal partial class WebServerRoute
 {
-    public void PostConvert(HttpListenerContext context)
+    public (HttpListenerResponse response, string data) PostConvert(HttpListenerContext context)
     {
-        var response = context.Response;
-        response.StatusCode = 200;
-        
         Stream body = context.Request.InputStream;
-        var encoding = context.Request.ContentEncoding;
-        var reader = new StreamReader(body, encoding);
+        Encoding encoding = context.Request.ContentEncoding;
+        StreamReader reader = new StreamReader(body, encoding);
         string strReceive = reader.ReadToEnd();
         
-        var buffer = "ListenListen"u8.ToArray();
-        response.ContentLength64 = buffer.Length;
-        var output = response.OutputStream;
-        output.Write(buffer, 0, buffer.Length);
-        output.Close();
-        response.Close();
+        HttpListenerResponse response = context.Response;
+        response.StatusCode = 200;
         
-        
-        Console.WriteLine($"ListenListen {strReceive}");
+        Console.WriteLine($"Listen {strReceive}");
+
+        (HttpListenerResponse response, string data) result = (response, "Success");
+        return result;
     }
 }

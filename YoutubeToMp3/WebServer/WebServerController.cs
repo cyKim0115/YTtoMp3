@@ -1,4 +1,6 @@
 using System.Net;
+using System.Text;
+#pragma warning disable CS8604
 
 namespace YoutubeToMp3.WebServer;
 
@@ -27,20 +29,38 @@ public class WebServerController
         }
     }
 
+    private void SendResponse(HttpListenerResponse response, string data)
+    {
+        byte[] buffer = Encoding.UTF8.GetBytes(data);
+        response.ContentLength64 = buffer.Length;
+        Stream output = response.OutputStream;
+        output.Write(buffer, 0, buffer.Length);
+        output.Close();
+        response.Close();
+    }
+    
     private void ProcessRequest(HttpListenerContext context)
     {
         string? str = context.Request.RawUrl?.Split('/')[1];
+        (HttpListenerResponse response, string data) responseData = (null, null);
 
+        // favicon 무시
+        if (!string.IsNullOrEmpty(str) && str.Contains("favicon"))
+            return;
+        
         switch (str)
         {
             case "Convert":
-                _route.PostConvert(context);
+                responseData = _route.PostConvert(context);
                 break;
             case "List":
+                responseData = _route.GetList(context);
                 break;
             default:
                 Console.WriteLine($"없는 요청 {str}");
                 break;
         }
+        
+        SendResponse(responseData.response,responseData.data);
     }
 }
