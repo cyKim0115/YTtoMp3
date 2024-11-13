@@ -56,6 +56,9 @@ public class WebServerController
             case "List":
                 responseData = _route.GetList(context);
                 break;
+            case "Download":
+                responseData = _route.GetDownload(context);
+                break;
             default:
                 Console.WriteLine($"없는 요청 {str}");
                 break;
