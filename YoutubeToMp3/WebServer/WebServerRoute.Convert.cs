@@ -2,6 +2,7 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using YDLib;
+#pragma warning disable CS8602
 #pragma warning disable CS8600
 
 namespace YoutubeToMp3.WebServer;

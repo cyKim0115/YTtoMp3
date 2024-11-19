@@ -23,8 +23,10 @@ public class WebServerController
         while (_listener.IsListening)
         {
             var context = _listener.GetContext();
-            Thread thread = new Thread(() => ProcessRequest(context));
-            thread.IsBackground = true;
+            var thread = new Thread(() => ProcessRequest(context))
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
     }
