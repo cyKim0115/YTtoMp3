@@ -54,18 +54,19 @@ public class WebServerController
         {
             case "Convert":
                 responseData = _route.PostConvert(context);
+                SendResponse(responseData.response,responseData.data);
                 break;
             case "List":
                 responseData = _route.GetList(context);
+                SendResponse(responseData.response,responseData.data);
                 break;
             case "Download":
-                responseData = _route.GetDownload(context);
+                responseData = _route.GetDownload(context).GetAwaiter().GetResult();
                 break;
             default:
                 Console.WriteLine($"없는 요청 {str}");
+                SendResponse(responseData.response,responseData.data);
                 break;
         }
-        
-        SendResponse(responseData.response,responseData.data);
     }
 }
