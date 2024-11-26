@@ -1,32 +1,32 @@
 using System.Net;
-using System.Text;
+using Newtonsoft.Json;
+using YDLib;
+#pragma warning disable CS8602
+#pragma warning disable CS8600
 
 namespace YoutubeToMp3.WebServer;
 
 internal partial class WebServerRoute
 {
-    public async Task<(HttpListenerResponse response, string data)> GetDownload(HttpListenerContext context)
+    public async Task GetDownload(HttpListenerContext context)
     {
-        Stream body = context.Request.InputStream;
-        Encoding encoding = context.Request.ContentEncoding;
-        StreamReader reader = new(body, encoding);
-        string strReceive = reader.ReadToEnd();
+        var body = context.Request.InputStream;
+        var encoding = context.Request.ContentEncoding;
+        var reader = new StreamReader(body, encoding);
+        var strReceive = reader.ReadToEndAsync().GetAwaiter().GetResult();
 
-        var fileName = "어항[을 깨다:부시다] - 뢴트게늄.mp3";
+        Console.WriteLine($"받은 데이터 \n {strReceive}");
+        DownloadRequest requestInfo = JsonConvert.DeserializeObject<DownloadRequest>(strReceive);
+        
+        var fileName = requestInfo.Name;
         var fileFullPath = Path.Join(GlobalFunction.GetDownloadPath(), fileName);
-
         
         HttpListenerResponse response = context.Response;
         response.StatusCode = 200;
         
-        Console.WriteLine($"Listen {strReceive}");
+        // 해당 파일이 없다면 리턴
+        if (!File.Exists(fileFullPath)) return;
 
-        if (!File.Exists(fileFullPath))
-        {
-            return (response, "Failed");
-        }
-
-        (HttpListenerResponse response, string data) result;
         try
         {
             response.StatusCode = (int)HttpStatusCode.OK;
@@ -40,17 +40,11 @@ internal partial class WebServerRoute
             }
             
             response.OutputStream.Close();
-        
-            result = (response, "Success");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             response.OutputStream.Close();
-            
-            result = (response, "Success");
         }
-        
-        return result;
     }
 }

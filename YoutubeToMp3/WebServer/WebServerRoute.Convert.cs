@@ -24,8 +24,8 @@ internal partial class WebServerRoute
             StreamReader reader = new(body, encoding);
             string strReceive = reader.ReadToEnd();
 
-            ConvertRequestInfo requestInfo = JsonConvert.DeserializeObject<ConvertRequestInfo>(strReceive);
-            Thread newThread = new(Task.Run(() => { _convertController.Convert(requestInfo.url, requestInfo.name); }).GetAwaiter().GetResult)
+            ConvertRequest requestInfo = JsonConvert.DeserializeObject<ConvertRequest>(strReceive);
+            Thread newThread = new(Task.Run(() => { _convertController.Convert(requestInfo.Url, requestInfo.Name); }).GetAwaiter().GetResult)
                 {
                     IsBackground = true
                 };

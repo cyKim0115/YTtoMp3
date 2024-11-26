@@ -2,8 +2,9 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -12,7 +13,7 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
       <PackageReference Include="VideoLibrary" Version="3.2.6" />
-      <PackageReference Include="YDProjectClassLibrary" Version="1.0.0" />
+      <PackageReference Include="YDLib" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>

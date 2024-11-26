@@ -61,7 +61,7 @@ public class WebServerController
                 SendResponse(responseData.response,responseData.data);
                 break;
             case "Download":
-                responseData = _route.GetDownload(context).GetAwaiter().GetResult();
+                _route.GetDownload(context).GetAwaiter().GetResult();
                 break;
             default:
                 Console.WriteLine($"없는 요청 {str}");
