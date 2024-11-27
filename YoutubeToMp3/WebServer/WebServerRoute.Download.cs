@@ -18,7 +18,7 @@ internal partial class WebServerRoute
         Console.WriteLine($"받은 데이터 \n {strReceive}");
         DownloadRequest requestInfo = JsonConvert.DeserializeObject<DownloadRequest>(strReceive);
         
-        var fileName = requestInfo.Name;
+        var fileName = requestInfo.name;
         var fileFullPath = Path.Join(GlobalFunction.GetDownloadPath(), fileName);
         
         HttpListenerResponse response = context.Response;
