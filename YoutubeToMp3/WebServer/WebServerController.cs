@@ -63,6 +63,10 @@ public class WebServerController
             case "Download":
                 _route.GetDownload(context).GetAwaiter().GetResult();
                 break;
+            case "Check":
+                responseData = _route.GetCheck(context);
+                SendResponse(responseData.response,responseData.data);
+                break;
             default:
                 Console.WriteLine($"없는 요청 {str}");
                 SendResponse(responseData.response,responseData.data);
