@@ -13,7 +13,11 @@ internal partial class WebServerRoute
         List<FileItem> listFileInfo = new();
         foreach (string fileUri in files)
         {
-            listFileInfo.Add(new FileItem(fileUri));
+            var fileInfo = new FileItem(fileUri);
+            if(fileInfo.extension != ".mp3")
+                continue;
+                
+            listFileInfo.Add(fileInfo);
         }
 
         string logResult = JsonConvert.SerializeObject(listFileInfo);
